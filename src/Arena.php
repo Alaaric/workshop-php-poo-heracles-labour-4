@@ -29,6 +29,23 @@ class Arena
         return $this->getDistance($attacker, $defenser) <= $attacker->getRange();
     }
 
+    public function move(Fighter $fighter, string $direction): void {
+        switch ($direction) {
+            case 'N':
+                 $fighter->setY(+1);
+            break;
+            case 'S':
+                $fighter->setY(-1);
+                break;
+            case 'W':
+                $fighter->setX(-1) ;
+                break;
+            case 'E':
+                $fighter->setX(+1) ;
+                break;
+        }
+    }
+
     /**
      * Get the value of monsters
      */ 
