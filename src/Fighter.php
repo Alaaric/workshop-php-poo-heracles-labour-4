@@ -116,7 +116,7 @@ abstract class Fighter
      */
     public function getStrength(): int
     {
-        return $this->strength;
+        return $this->strength * Level::calculate($this->getExperience());
     }
 
     /**
@@ -133,7 +133,7 @@ abstract class Fighter
      */
     public function getDexterity(): int
     {
-        return $this->dexterity;
+        return $this->dexterity * Level::calculate($this->getExperience());
     }
 
     /**
