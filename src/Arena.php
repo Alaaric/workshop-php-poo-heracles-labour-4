@@ -39,28 +39,22 @@ class Arena
 
     public function move(Fighter $fighter, string $direction): void
     {
-        $posPreviewX = $fighter->getX();
-        $posPreviewY = $fighter->getY();
         $outOfArenaMessage = "you can't go out of arena";
         switch ($direction) {
             case 'N':
-                $posPreviewY - 1;
-                $posPreviewY <= 0 ? throw new Exception($outOfArenaMessage) :
+                $fighter->getY() <= 0 ? throw new Exception($outOfArenaMessage) :
                 $fighter->setY($fighter->getY() - 1);
                 break;
             case 'S':
-                $posPreviewY + 1;
-                $posPreviewY >= 9 ? throw new Exception($outOfArenaMessage) :
+                $fighter->getY() >= 9 ? throw new Exception($outOfArenaMessage) :
                 $fighter->setY($fighter->getY() + 1);
                 break;
             case 'W':
-                $posPreviewX - 1;
-                $posPreviewX <= 0 ? throw new Exception($outOfArenaMessage) :
+                $fighter->getX() <= 0 ? throw new Exception($outOfArenaMessage) :
                 $fighter->setX($fighter->getX() - 1);
                 break;
             case 'E':
-                $posPreviewX + 1;
-                $posPreviewX >= 9 ? throw new Exception($outOfArenaMessage) :
+                $fighter->getX() >= 9 ? throw new Exception($outOfArenaMessage) :
                 $fighter->setX($fighter->getX() + 1);
                 break;
         }
