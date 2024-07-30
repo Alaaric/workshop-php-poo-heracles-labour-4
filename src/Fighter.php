@@ -13,21 +13,23 @@ abstract class Fighter
     private int $life = self::MAX_LIFE;
     private int $x;
     private int $y;
+    protected int $experience;
     protected float $range = 1;
 
     public function __construct(
         string $name,
-        int $strength = 10,
-        int $dexterity = 5,
+        int    $strength = 10,
+        int    $dexterity = 5,
         string $image = 'fighter.svg'
-    ) {
+    )
+    {
         $this->name = $name;
         $this->strength = $strength;
         $this->dexterity = $dexterity;
         $this->image = $image;
     }
 
-    
+
     public function getDamage(): int
     {
         $damage = $this->getStrength();
@@ -42,7 +44,21 @@ abstract class Fighter
         return $defense;
     }
 
+    /**
+     * @return int
+     */
+    public function getExperience(): int
+    {
+        return $this->experience;
+    }
 
+    /**
+     * @param int $experience
+     */
+    public function setExperience(int $experience): void
+    {
+        $this->experience = $experience;
+    }
 
     /**
      * Get the value of name
@@ -131,7 +147,7 @@ abstract class Fighter
 
     /**
      * Get the value of x
-     */ 
+     */
     public function getX(): int
     {
         return $this->x;
@@ -139,7 +155,7 @@ abstract class Fighter
 
     /**
      * Set the value of x
-     */ 
+     */
     public function setX($x): void
     {
         $this->x = $x;
@@ -147,7 +163,7 @@ abstract class Fighter
 
     /**
      * Get the value of y
-     */ 
+     */
     public function getY(): int
     {
         return $this->y;
@@ -155,7 +171,7 @@ abstract class Fighter
 
     /**
      * Set the value of y
-    */ 
+     */
     public function setY($y): void
     {
         $this->y = $y;
@@ -163,7 +179,7 @@ abstract class Fighter
 
     /**
      * Get the value of range
-     */ 
+     */
     public function getRange(): float
     {
         return $this->range;

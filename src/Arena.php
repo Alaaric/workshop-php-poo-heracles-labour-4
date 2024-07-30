@@ -29,36 +29,52 @@ class Arena
         return sqrt($Xdistance ** 2 + $Ydistance ** 2);
     }
 
-    public function getMonstersPositions(array $monsters): array {
-        $positions = [];
-        foreach ($monsters as $monster) {
-           $positions[] = [$monster->getX(), $monster->getY()];
-        }
-        return $positions;
-    }
-
     public function move(Fighter $fighter, string $direction): void
     {
         $outOfArenaMessage = "you can't go out of arena";
         switch ($direction) {
             case 'N':
                 $fighter->getY() <= 0 ? throw new Exception($outOfArenaMessage) :
-                $fighter->setY($fighter->getY() - 1);
+                    $fighter->setY($fighter->getY() - 1);
                 break;
             case 'S':
                 $fighter->getY() >= 9 ? throw new Exception($outOfArenaMessage) :
-                $fighter->setY($fighter->getY() + 1);
+                    $fighter->setY($fighter->getY() + 1);
                 break;
             case 'W':
                 $fighter->getX() <= 0 ? throw new Exception($outOfArenaMessage) :
-                $fighter->setX($fighter->getX() - 1);
+                    $fighter->setX($fighter->getX() - 1);
                 break;
             case 'E':
                 $fighter->getX() >= 9 ? throw new Exception($outOfArenaMessage) :
-                $fighter->setX($fighter->getX() + 1);
+                    $fighter->setX($fighter->getX() + 1);
                 break;
         }
     }
+
+    public function battle(int $id)
+    {
+        $monster = $this->monsters[$id];
+
+        if ($this->touchable($this->getHero(), $monster)) {
+            $this->getHero()->fight($monster);
+        } else {
+            throw new Exception("You can't battle this monster");
+        }
+        if (!$monster->isAlive()) {
+            $this->getHero()->setExperience($this->getHero()->getExperience() + $monster->getExperience());
+            unset($this->monsters[$id]);
+        } else {
+            if ($this->touchable($monster, $this->getHero())) {
+                $monster->fight($this->getHero());
+            } else {
+                throw new Exception("Monster cant reach you");
+            }
+        }
+
+
+    }
+
 
     /**
      * Get the value of monsters
